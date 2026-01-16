@@ -3,7 +3,7 @@
 # Simple Windows security check
 # =========================================
 
-$LogFile = "windows_security.log"
+$LogFile = "windows_security.json"
 
 function Write-Log {
     param ($Message)
@@ -29,3 +29,4 @@ catch {
 
 Write-Log "Windows security check completed successfully"
 exit 0
+
