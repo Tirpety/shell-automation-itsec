@@ -2,7 +2,8 @@
 # windows_security_check.ps1
 # =========================================
 
-$LogFile = "windows_security.csv"
+$OutputFile = "data/windows_output.csv"
+$LogFile = "data/windows_security.log"
 
 function Write-Log {
     param ($Message)
@@ -28,5 +29,6 @@ catch {
 
 Write-Log "Windows security check completed successfully"
 exit 0
+
 
 
