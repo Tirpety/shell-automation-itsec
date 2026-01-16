@@ -3,7 +3,8 @@
 # linux_security_check.sh
 # =========================================
 
-LOG_FILE="linux_security.json"
+OUTPUT_FILE="data/linux_output.json"
+LOG_FILE="data/linux_security.log"
 
 log() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') $1" >> "$LOG_FILE"
