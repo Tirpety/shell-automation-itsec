@@ -1,10 +1,9 @@
 #!/bin/bash
 # =========================================
 # linux_security_check.sh
-# Simple Linux security checks (looped version)
 # =========================================
 
-LOG_FILE="linux_security.log"
+LOG_FILE="linux_security.json"
 
 log() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') $1" >> "$LOG_FILE"
