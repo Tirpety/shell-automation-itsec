@@ -1,7 +1,7 @@
 #!/bin/bash
 # =========================================
 # linux_security_check.sh
-# Simple Linux security checks
+# Simple Linux security checks (looped version)
 # =========================================
 
 LOG_FILE="linux_security.log"
@@ -10,21 +10,27 @@ log() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') $1" >> "$LOG_FILE"
 }
 
-log "Starting Linux security check"
+while true; do
+    log "Linux security check started"
 
-# Check if required files exist
-if [ ! -f /var/log/auth.log ]; then
-    log "ERROR: auth.log not found"
-    exit 1
-fi
+    # Check required command
+    if ! command -v grep >/dev/null; then
+        log "ERROR: Required command 'grep' not available"
+        exit 1
+    fi
 
-# Check for world-writable files
-WW_FILES=$(find /etc -type f -perm -0002 2>/dev/null | wc -l)
-log "World-writable files in /etc: $WW_FILES"
+    # Check SSH log file
+    if [ ! -f /var/log/auth.log ]; then
+        log "ERROR: SSH log file not found"
+        exit 1
+    fi
 
-# Check failed SSH logins
-FAILED_LOGINS=$(grep "Failed password" /var/log/auth.log | wc -l)
-log "Failed SSH logins: $FAILED_LOGINS"
+    # Failed SSH login attempts
+    FAILED_LOGINS=$(grep "Failed password" /var/log/auth.log | wc -l)
+    log "Failed SSH login attempts: $FAILED_LOGINS"
 
-log "Linux security check finished"
-exit 0
+    log "Linux security check completed successfully"
+
+    # Wait 5 minutes before next iteration
+    sleep 300
+done
